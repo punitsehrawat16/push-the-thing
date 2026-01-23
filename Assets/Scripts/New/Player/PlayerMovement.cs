@@ -43,13 +43,14 @@ public class PlayerMovement : MonoBehaviour
             isMoving = false;
         }
     }
+
     public bool Move(Vector2 direction)
     {
-        if (Mathf.Abs(direction.x) > 0.5)
+        if (Mathf.Abs(direction.x) > 0.5f)
         {
             direction.y = 0;
         }
-        else if (Mathf.Abs(direction.y) > 0.5)
+        else if (Mathf.Abs(direction.y) > 0.5f)
         {
             direction.x = 0;
         }

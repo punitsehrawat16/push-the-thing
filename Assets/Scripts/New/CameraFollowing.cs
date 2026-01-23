@@ -7,19 +7,27 @@ public class CameraFollowing : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] float[] camSizes = {3.2f,5f,6.8f};
     int camSizesIndex = 0;
+    int camCount;
 
     [Header("Player Follow")]
     [SerializeField] Transform playerTransform;
     [SerializeField] Vector3 offset;
     [SerializeField] float smoothMovingSpeed = 0.05f;
     //Vector3 velocity = Vector3.zero;
-    public void Start()
+    void Awake()
     {
         playerTransform = FindObjectOfType<PlayerMovement>().transform;
         cam = FindAnyObjectByType<Camera>();
-        camSizes[1] = cam.orthographicSize;
+        
     }
-    public void FixedUpdate()
+
+    void Start()
+    {
+        camSizesIndex = 2;
+        cam.orthographicSize = camSizes[camSizesIndex];
+        camCount = camSizes.Length-1;
+    }
+    void FixedUpdate()
     {
         Vector3 desiredPosition = playerTransform.position + offset;
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothMovingSpeed);
@@ -29,7 +37,7 @@ public class CameraFollowing : MonoBehaviour
     public void CamSetting()
     {
         camSizesIndex++;
-        if (camSizesIndex > camSizes.Length)
+        if (camSizesIndex > camCount)
         {
             camSizesIndex = 0;
         }
