@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,9 +8,16 @@ public class WinManager : MonoBehaviour
 
     public void ShowPanel()
     {
+        StartCoroutine(WinPanelCoroutine());
+    }
+
+    IEnumerator WinPanelCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
         Time.timeScale = 0f;
         WinPanel.SetActive(true);
     }
+
     public void Retry()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
