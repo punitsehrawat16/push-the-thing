@@ -1,10 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class WinManager : MonoBehaviour
 {
-    public GameObject WinPanel;
+    [FormerlySerializedAs("WinPanel")] public GameObject winPanel;
+    public GameObject gamePanel;
+    public GameObject guidePanel;
 
     public void ShowPanel()
     {
@@ -15,19 +18,34 @@ public class WinManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         Time.timeScale = 0f;
-        WinPanel.SetActive(true);
+        gamePanel.SetActive(false);
+        winPanel.SetActive(true);
+    }
+    public void ShowGuidePanel()
+    {
+        Time.timeScale = 0f;
+        guidePanel.SetActive(true);
+        gamePanel.SetActive(false); 
+    }
+
+    public void HideGuidePanel()
+    {
+        Time.timeScale = 1f;
+        guidePanel.SetActive(false);
+        gamePanel.SetActive(true);
     }
 
     public void Retry()
     {
+        gamePanel.SetActive(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         if (Time.timeScale == 0f)
         {
             Time.timeScale = 1f;
         }
-        if (WinPanel.activeSelf)
+        if (winPanel.activeSelf)
         {
-            WinPanel.SetActive(false);
+            winPanel.SetActive(false);
         }
     }
     public void NextLevel()

@@ -1,27 +1,33 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class LevelPause : MonoBehaviour
 {
-    public GameObject PausePanel;
+    [FormerlySerializedAs("PausePanel")] public GameObject PauseMePanel;
+    public GameObject GamePanel;
+
+
     public void Pause()
     {
-        PausePanel.SetActive(true);
         Time.timeScale = 0f;
+        PauseMePanel.SetActive(true);
+        GamePanel.SetActive(false);
     }
     public void Resume()
     {
-        PausePanel.SetActive(false);
         Time.timeScale = 1f;
+        PauseMePanel.SetActive(false);
+        GamePanel.SetActive(true);
     }
     public void Menu()
     {
-        SceneManager.LoadScene("Menu");
         Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu");
     }
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
